@@ -1,0 +1,26 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:mvc="http://www.springframework.org/schema/mvc"
+      xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd 
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+   <context:component-scan base-package="controller"/>
+   <context:component-scan base-package="dao"/>      
+   <mvc:annotation-driven/>
+   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+      <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+      <property name="username" value="hr" />
+      <property name="password" value="hr" />
+      <property name="initialSize" value="1" />
+      <property name="maxActive" value="5" />
+   </bean>
+   <bean id="usuarioDao" class="dao.UsuarioDaoImpl">
+      <property name="dataSource" ref="dataSource" /><!-- JdbcVe... y a la propiedad datasource por medio del setter() se le asigna el bean de arriba (href="dataSource") -->
+   </bean>
+</beans>
